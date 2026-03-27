@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QubitXlabs - Quantum Innovation Labs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0369a1;
+            --secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --bg: #ffffff;
+            --card-shadow: 0 20px 25px -5px rgba(0, 0,0, 0.1), 0 10px 10px -5px rgba(0, 0,0, 0.04);
+            --border: #e2e8f0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: 0.3s;
+        }
+        section {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #hero {
+            padding: 120px 2rem 80px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary) 0%, #f1f5f9 100%);
+        }
+        #hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        #hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.25);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), #3b82f6);
+        }
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0,0, 0.15);
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        .icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        #services {
+            background: var(--secondary);
+        }
+        #team {
+            background: var(--secondary);
+        }
+        #testimonials {
+            text-align: center;
+            background: white;
+        }
+        .testimonial {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            padding: 2rem;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        .testimonial cite {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        #callback {
+            background: var(--secondary);
+            text-align: center;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            background: white;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 100px);
+                background: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            }
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            .hamburger {
+                display: flex;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">QubitXlabs</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#callback">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Quantum-Powered Innovation</h1>
+        <p>Transforming research prototypes into scalable, high-performance solutions with expertise in quantum computing, cloud-native systems, and AI.</p>
+        <a href="#callback" class="cta-button">Get Started</a>
+    </section>
+
+    <section id="services">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto 4rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Our Services</h2>
+            <p style="color: var(--text-secondary);">Specialized solutions for cutting-edge quantum and cloud technologies</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-calculator icon"></i>
+                <h3>Scientific Programming</h3>
+                <p>Skilled in numerical simulations, data analysis, HPC with Python, Julia, Fortran. Quantum algorithms, ML prototypes, PySpark, NetworkX, Streamlit.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-brain icon"></i>
+                <h3>Computer Algebraic Systems</h3>
+                <p>SymPy, Mathematica, Maple for symbolic math, quantum derivations, optimization using Python-integrated CAS tools.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shield-alt icon"></i>
+                <h3>High Availability Systems</h3>
+                <p>Fault-tolerant architectures with Kubernetes, Docker, AWS for 99.99% uptime in quantum prototypes and ML pipelines.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-database icon"></i>
+                <h3>Data Engineering</h3>
+                <p>Scalable ETL with PySpark, Kafka, PostgreSQL, AWS S3/Glue/EMR for quantum datasets and real-time Streamlit insights.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-code icon"></i>
+                <h3>Application Development</h3>
+                <p>Custom apps with Streamlit, Vue.js, Docker, Kubernetes for quantum prototypes and scalable DevOps deployments.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-lock icon"></i>
+                <h3>Systems Security</h3>
+                <p>QKD, ACLs, zero-trust, Kubernetes security for high-availability quantum prototypes and data protection.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto 4rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Our Team</h2>
+            <p style="color: var(--text-secondary);">Experts driving quantum innovation</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-user-tie icon" style="color: #8b5cf6;"></i>
+                <h3>Arshpreet Singh</h3>
+                <p>Lead Quantum Engineer. QKD, PySpark, quantum optimization specialist.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-user-graduate icon" style="color: #10b981;"></i>
+                <h3>Quantum Specialist</h3>
+                <p>Scientific programming and CAS expert for quantum algorithms.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-cogs icon" style="color: #f59e0b;"></i>
+                <h3>DevOps Architect</h3>
+                <p>High availability and cloud-native systems engineer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto 4rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Featured Projects</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-key icon" style="color: #ef4444;"></i>
+                <h3>QKD Secure Network</h3>
+                <p>Quantum key distribution prototype with cloud integration.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-chart-line icon" style="color: #06b6d4;"></i>
+                <h3>ML Inference Pipeline</h3>
+                <p>Real-time quantum ML dashboards with Streamlit.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-rocket icon" style="color: #eab308;"></i>
+                <h3>Quantum Simulations</h3>
+                <p>High-performance simulations on AWS EMR/Julia.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 3rem; text-align: center;">What Our Clients Say</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+            <div class="testimonial card">
+                <p>"QubitXlabs delivered quantum prototypes with unmatched security and scalability. True experts."</p>
+                <cite>&mdash; Research Director, TechCorp</cite>
+            </div>
+            <div class="testimonial card">
+                <p>"Their high-availability systems transformed our ML infrastructure. Highly recommended."</p>
+                <cite>&mdash; CTO, Innovate Labs</cite>
+            </div>
+        </div>
+    </section>
+
+    <section id="callback">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto 4rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Request a Callback</h2>
+            <p style="color: var(--text-secondary);">Let's discuss your quantum project</p>
+        </div>
+        <form class="form-container" id="callbackForm">
+            <div class="form-group">
+                <input type="text" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" placeholder="Phone">
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Tell us about your project..." required></textarea>
+            </div>
+            <button type="submit" class="cta-button" style="width: 100%; max-width: 300px;">Request Callback</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 QubitXlabs. All rights reserved. | Greater Noida, Uttar Pradesh, India</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Form handling
+        document.getElementById('callbackForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you! We\'ll reach out within 24 hours.');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').style.background = window.scrollY > 100 
+                ? 'rgba(255,255,255,0.98)' 
+                : 'rgba(255,255,255,0.95)';
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
